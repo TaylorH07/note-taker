@@ -6,6 +6,6 @@ module.exports.getNotes = () => {
 };
 
 module.exports.postNotes = (note) => {
-    console.log('note inside pst method' + JSON.stringify(note))
+    console.log('note inside post method' + JSON.stringify(note))
     //: write note to file
 }
