@@ -1,35 +1,41 @@
 const router = require('express').Router();
-const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
-const { response } = require('express');
-//const db = require('../db/db.js');
+const db = require('../db/db.js');
+
+//const fs = require('fs');
+//const { v4: uuidv4 } = require('uuid');
+//const { response } = require('express');
+
 
 
 // GET router
 router.get('/notes', (req,res) => {
+
+    db.getNotes().then(notes => res.json(notes))
+
     //res.status(200).json(JSON.parse(db.getNotes()));
-
-    const getData = JSON.parse(fs.readFileSync("./db/db.json", "utf-8"));
-
-    res.json(getData);
+    // const getData = JSON.parse(fs.readFileSync("./db/db.json", "utf-8"));
+    // res.json(getData);
 });
 
 // POST router 
 router.post('/notes', (req, res) => {
+
+    db.addNote(req.body).then(note => res.json(note));
+
     //new note from request body
-    const newEntry = req.body;
+    // const newEntry = req.body;
 
-    //id obtained from uuid package
-    newEntry.id = uuidv4();
+    // //id obtained from uuid package
+    // newEntry.id = uuidv4();
 
-    //read data in json
-    const getData = JSON.parse(fs.readFileSync("./db/db.json"));
+    // //read data in json
+    // const getData = JSON.parse(fs.readFileSync("./db/db.json"));
 
-    //new entry in db.json file
-    fs.writeFileSync('./db/db.json', JSON.stringify(getData));
+    // //new entry in db.json file
+    // fs.writeFileSync('./db/db.json', JSON.stringify(getData));
 
-    //sends data response
-    response.json(getData);
+    // //sends data response
+    // response.json(getData);
 
     // wait for this : res.status(200).send('wrote file successfully')
     //console.log(newEntry);
@@ -37,15 +43,18 @@ router.post('/notes', (req, res) => {
 
 //DELETE router
 router.delete('/notes/:id', (req, res) => {
-    let noteId = req.params.id.toString();
 
-    let getData = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+    db.removeNote(req.params.id).then(() => res.json({ ok: true }));
 
-    const newEntry = getData.filter( note => note.id.toString() !== noteId );
+    // let noteId = req.params.id.toString();
 
-    fs.writeFileSync('./db/db.json', JSON.stringify(newEntry));
+    // let getData = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
 
-    response.json(newEntry);
+    // const newEntry = getData.filter( note => note.id.toString() !== noteId );
+
+    // fs.writeFileSync('./db/db.json', JSON.stringify(newEntry));
+
+    // response.json(newEntry);
 });
 
 
