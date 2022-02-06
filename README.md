@@ -15,7 +15,8 @@ Within this app the user will be able to create personalized notes. The user wil
 To the app from the terminal, it would be important to have "Node" installed.
 
 ## Usage
-To run the app from the terminal be sure to input "node server.js". After running server the user will go to the local server 3001.
+To run the app from the terminal be sure to input "node server.js". After running server the user will go to the local server 3001. 
+The app is also run from this link: https://calm-dusk-17445.herokuapp.com/
 
 This application is covered by the MIT License license. 
 
