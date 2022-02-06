@@ -2,20 +2,20 @@ const router = require('express').Router();
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const { response } = require('express');
-const db = require('../db/db.js');
+//const db = require('../db/db.js');
 
 
 // GET router
-router.get('/api/notes', (req,res) => {
+router.get('/notes', (req,res) => {
     //res.status(200).json(JSON.parse(db.getNotes()));
 
-    let getData = JSON.parse(fs.readFileSync("./db/db.json", "utf-8"));
+    const getData = JSON.parse(fs.readFileSync("./db/db.json", "utf-8"));
 
     res.json(getData);
 });
 
 // POST router 
-router.post('/api/notes', (req, res) => {
+router.post('/notes', (req, res) => {
     //new note from request body
     const newEntry = req.body;
 
@@ -23,7 +23,7 @@ router.post('/api/notes', (req, res) => {
     newEntry.id = uuidv4();
 
     //read data in json
-    let getData = JSON.parse(fs.readFileSync("./db/db.json", "utf-8"));
+    const getData = JSON.parse(fs.readFileSync("./db/db.json"));
 
     //new entry in db.json file
     fs.writeFileSync('./db/db.json', JSON.stringify(getData));
@@ -36,17 +36,17 @@ router.post('/api/notes', (req, res) => {
 });
 
 //DELETE router
-// router.delete('/api/notes/:id', (req, res) => {
-//     let notesId = req.params.id.toString();
+router.delete('/notes/:id', (req, res) => {
+    let noteId = req.params.id.toString();
 
-//     let getData = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
+    let getData = JSON.parse(fs.readFileSync('./db/db.json', 'utf-8'));
 
-//     const newEntry = getData.filter( note => note.id.toString() !== notesId );
+    const newEntry = getData.filter( note => note.id.toString() !== noteId );
 
-//     fs.writeFileSync('./db/db.json', JSON.stringify(newEntry));
+    fs.writeFileSync('./db/db.json', JSON.stringify(newEntry));
 
-//     response.json(newEntry);
-// });
+    response.json(newEntry);
+});
 
 
 module.exports = router;
