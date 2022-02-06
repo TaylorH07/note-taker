@@ -1,11 +1,6 @@
 const router = require('express').Router();
 const db = require('../db/db.js');
 
-//const fs = require('fs');
-//const { v4: uuidv4 } = require('uuid');
-//const { response } = require('express');
-
-
 
 // GET router
 router.get('/notes', (req,res) => {
