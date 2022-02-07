@@ -46,11 +46,3 @@ class DB {
 }
 
 module.exports = new DB();
-// module.exports.getNotes = () => {
-//     return fs.readFileSync(path.join(__dirname + './db.json', 'utf-8'));
-// };
-
-// module.exports.postNotes = (note) => {
-//     console.log('note inside post method' + JSON.stringify(note))
-//     //: write note to file
-// }
